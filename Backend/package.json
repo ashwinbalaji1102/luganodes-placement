@@ -26,6 +26,7 @@
     "mongodb": "^5.7.0",
     "mongoose": "^7.4.1",
     "mysql2": "^2.3.3",
-    "sequelize": "^6.31.1"
+    "sequelize": "^6.31.1",
+    "web3": "^4.0.3"
   }
 }

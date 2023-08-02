@@ -18,7 +18,7 @@ export default function ForgetPasswordPage() {
                 </p>
             </form>
             <footer>
-                <p><Link to="/login" className="general-links">Back to Sign In</Link></p>
+                <p><Link to="/login" className="general-links">Back to Login</Link></p>
                 <p>First time? <Link to="/register" className="general-links">Sign Up</Link>.</p>
                 {/* <p><Link to="/">Back to Homepage</Link>.</p> */}
             </footer>

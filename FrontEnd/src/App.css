@@ -75,7 +75,7 @@ h2 {
     font-weight: 300
 }
 
-form {
+form, .web3_form {
     display: inline-block;
     background: #f3f3f3;
     border: 1px solid #ddd;
@@ -83,7 +83,16 @@ form {
     padding: 2rem;
     margin: 2rem 0 1rem 0
 }
-
+.web3_form{
+    background: none;
+    border: none;
+    margin: 0em;
+    padding: 0rem 2rem 0rem 2rem;
+    width: 23em;
+}
+.web3_para{
+    margin: 0em;
+}
 form label {
     float: left;
     font-size: .9rem;
@@ -108,8 +117,16 @@ input {
     outline: none;
     border: none
 }
-
-#sub_btn {
+#web3_btn {
+    display: block;
+    width: 100%;
+    padding: .3rem;
+    border: none;
+    background: #222;
+    color: #fff;
+    border-radius: 3px;
+}
+#sub_btn{
     display: block;
     width: 100%;
     padding: .3rem;
@@ -119,7 +136,7 @@ input {
     border-radius: 3px;
 }
 
-#sub_btn:hover {
+#sub_btn:hover,#web3_btn:hover {
     background: #333;
     transition: all .5s
 }

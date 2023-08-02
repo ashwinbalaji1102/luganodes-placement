@@ -6,13 +6,13 @@ import { useEffect } from 'react';
 
 
 import Logo from "../../assets/images/luganodes.webp"
+import MLogo from "../../assets/images/metamask.png"
 import '../../App.css'
 
 export default function SignInPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
-    const [message, setMessage] = useState("");
     const history = useHistory();
 
     function isValidEmail(email) {
@@ -41,7 +41,7 @@ export default function SignInPage() {
     } 
 
     let handleSubmit = async(e) => {
-        console.log("1. handleSubmit");
+        //console.log("1. handleSubmit");
         //event.preventDefault();
         e.preventDefault();
         console.log(email);
@@ -75,13 +75,39 @@ export default function SignInPage() {
         }
         console.log("Received Response: ",resJson);
     };
+
+    const handleSubmitWallet = async () => {
+        console.log(window.web3)
+        if (window.web3) {
+        try {
+            const selectedAccount = await window.ethereum.request({
+                method: "eth_requestAccounts",
+            })
+            .then((accounts) => accounts[0])
+            .catch(() => {
+                throw Error("Please select an account");
+            });
     
+            window.userWalletAddress = selectedAccount;
+            // window.localStorage.setItem("userWalletAddress", selectedAccount);
+            setEmail("");
+            setPassword("");
+            history.push('/dashboard');
+    
+        } catch (error) {
+            setError("Wallet not found.");
+        }
+        } else {
+        setError("Wallet not found.");
+        }
+    };
+
     return (
         <div className="text-center m-5-auto">
             <p><img src={Logo} alt="Luganodes"/></p>
             <form onSubmit={handleSubmit}>
                 <p>
-                    <label>e-Mail Address</label><br/>
+                    <label>e-Mail</label><br/>
                     <input type="text" name="email" value={email} onChange={handleChangeEmail}/>
                     {error && <Alert type="error" message={error} />}
                 </p>
@@ -95,6 +121,12 @@ export default function SignInPage() {
                     <button id="sub_btn" type="submit">Login</button>
                 </p>
             </form>
+            <div className="text-center m-1-auto">
+                <form className="web3_form" onSubmit={handleSubmitWallet}>
+                    <p><button id="web3_btn" type="submit"><img src={MLogo} alt="Metamask" style={{width:"2em"}}/> Connect with MetaMask</button></p>
+                    {error && <Alert type="error" message={error} />}
+                </form>
+            </div>
             <footer>
                 <p>First time? <Link to="/register"><label className="general-links">Sign Up</label></Link>.</p>
             </footer>

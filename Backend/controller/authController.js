@@ -7,57 +7,41 @@ const User = db.user;
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
-// exports.signup = async (req, res) => {
-//   // Save User to Database
-//   try {
-//     const user = await User.create({
-//       username: req.body.username,
-//       email: req.body.email,
-//       password: bcrypt.hashSync(req.body.password, 8),
-//     });
-
-//     if (req.body.roles) {
-//       const roles = await Role.findAll({
-//         where: {
-//           name: {
-//             [Op.or]: req.body.roles,
-//           },
-//         },
-//       });
-
-//       const result = user.setRoles(roles);
-//       if (result) res.send({ message: "User registered successfully!" });
-//     } else {
-//       // user has role = 1
-//       const result = user.setRoles([1]);
-//       if (result) res.send({ message: "User registered successfully!" });
-//     }
-//   } catch (error) {
-//     res.status(500).send({ message: error.message });
-//   }
-// };
+exports.signup = async (req, res) => {
+  // Save User to Database
+  try {
+    const user = await User.create({
+      email: req.body.email,
+      //password: bcrypt.hashSync(req.body.password, 8),
+      password: req.body.password
+    });
+    
+    return res.send({ message: "User registered successfully!" });
+    
+  } catch (error) {
+    let message = error.message;
+    if(message.includes("duplicate")) {message = "e-Mail already exists."}
+    else message = "The server has run into an error. Our team is actively looking into the issue."
+    return res.status(500).send({ message: message });
+  }
+};
 
 exports.signin = async (req, res) => {
   try {
-    console.log("2. Message Received");
-    console.log(req.body);
-    console.log("Checking if e-mail exists: ",req.body.email);
     const email = await User.findOne({email: req.body.email});
-    console.log(email);
     if (!email) {
       return res.status(404).send({ message: "e-Mail Not found." });
     }
 
-//     const passwordIsValid = bcrypt.compareSync(
-//       req.body.password,
-//       user.password
-//     );
+    // const passwordIsValid = bcrypt.compareSync(
+    //   req.body.password,
+    // );
 
-//     if (!passwordIsValid) {
-//       return res.status(401).send({
-//         message: "Invalid Password!",
-//       });
-//     }
+    // if (!passwordIsValid) {
+    //   return res.status(401).send({
+    //     message: "Invalid Password!",
+    //   });
+    // }
 
 //     const token = jwt.sign({ id: user.id },
 //                            config.secret,
