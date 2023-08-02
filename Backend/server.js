@@ -11,13 +11,16 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cookieSession({
-    name: "bezkoder-session",
-    keys: ["COOKIE_SECRET"], 
+    name: "luganodes",
+    keys: ["COOKIE_SECRET"], // should use as secret environment variable
     httpOnly: true,
     sameSite: 'strict'
   })
 );
 
+// database
+const db = require("./models");
+//db.sequelize.sync();
 
 
 // routes

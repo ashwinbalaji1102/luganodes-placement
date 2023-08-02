@@ -1,4 +1,4 @@
-
+//const { verifySignUp } = require("../middleware");
 const controller = require("../controller/authController");
 
 module.exports = function(app) {
@@ -12,6 +12,16 @@ module.exports = function(app) {
     
   });
 
+//   app.post(
+//     "/api/auth/signup",
+//     [
+//       verifySignUp.checkDuplicateUsernameOrEmail,
+//       verifySignUp.checkRolesExisted
+//     ],
+//     controller.signup
+//   );
 
   app.post("/signin", controller.signin);
+
+//   app.post("/api/auth/signout", controller.signout);
 };

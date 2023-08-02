@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import Alert from './Alert';
 import {useState} from 'react';
 import { useEffect } from 'react';
@@ -13,6 +13,7 @@ export default function SignInPage() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
     const [message, setMessage] = useState("");
+    const history = useHistory();
 
     function isValidEmail(email) {
         return /\S+@\S+\.\S+/.test(email);
@@ -61,17 +62,18 @@ export default function SignInPage() {
             });
             
             resJson = await res.json();
+
             if (res.status === 200) {
                 setEmail("");
                 setPassword("");
-                this.props.history.push('/dashboard');
+                history.push('/dashboard');
             } else {
-                setError("An unexpected issue has occurred. We appreciate your patience while we work to restore normal service.");
+                setError(resJson["message"]);
             }
         } catch (err) {
             console.log(err);
         }
-        console.log(resJson);
+        console.log("Received Response: ",resJson);
     };
     
     return (
