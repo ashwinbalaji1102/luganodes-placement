@@ -29,7 +29,7 @@ export default function App() {
 
 const Footer = () => {
     return (
-         <p className="text-center" style={ FooterStyle }>Designed by <a href="https://www.linkedin.com/in/ashwin-balaji-489607252/" target="_blank" rel="noopener noreferrer" class="general-links">Ashwin Balaji</a></p>
+         <p className="text-center" style={ FooterStyle }>Designed by <a href="https://www.linkedin.com/in/ashwin-balaji-489607252/" target="_blank" rel="noopener noreferrer" className="general-links">Ashwin Balaji</a></p>
     )
 }
 
