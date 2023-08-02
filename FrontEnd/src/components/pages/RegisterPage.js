@@ -2,20 +2,16 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import '../../App.css'
-
+import Logo from "../../assets/images/luganodes.webp"
 export default function SignUpPage() {
 
     return (
         <div className="text-center m-5-auto">
-            <h2>Join us</h2>
-            <h5>Create your personal account</h5>
-            <form action="/home">
+            <p><img src={Logo} alt="Luganodes"/></p>
+            <h3>Create your Account</h3>
+            <form action="/dashboard">
                 <p>
-                    <label>Username</label><br/>
-                    <input type="text" name="first_name" required />
-                </p>
-                <p>
-                    <label>Email address</label><br/>
+                    <label>e-Mail Address</label><br/>
                     <input type="email" name="email" required />
                 </p>
                 <p>
@@ -23,14 +19,11 @@ export default function SignUpPage() {
                     <input type="password" name="password" requiredc />
                 </p>
                 <p>
-                    <input type="checkbox" name="checkbox" id="checkbox" required /> <span>I agree all statements in <a href="https://google.com" target="_blank" rel="noopener noreferrer">terms of service</a></span>.
-                </p>
-                <p>
                     <button id="sub_btn" type="submit">Register</button>
                 </p>
             </form>
             <footer>
-                <p><Link to="/">Back to Homepage</Link>.</p>
+            <p>Already a user? <Link to="/login" className="general-links">Sign In</Link></p>
             </footer>
         </div>
     )

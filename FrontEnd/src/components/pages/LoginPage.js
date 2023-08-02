@@ -4,6 +4,7 @@ import Alert from './Alert';
 import {useState} from 'react';
 import { useEffect } from 'react';
 
+import Logo from "../../assets/images/luganodes.webp"
 import '../../App.css'
 
 export default function SignInPage() {
@@ -33,8 +34,9 @@ export default function SignInPage() {
 
     return (
         <div className="text-center m-5-auto">
-            <h2>Welcome to Luganodes!</h2>
+            <p><img src={Logo} alt="Luganodes"/></p>
             <form action="/dashboard">
+                
                 <p>
                     <label>e-Mail Address</label><br/>
                     <input type="text" name="email" value={email} onChange={handleChange}/>
@@ -51,7 +53,7 @@ export default function SignInPage() {
                 </p>
             </form>
             <footer>
-                <p>First time? <Link to="/register">Sign Up</Link>.</p>
+                <p>First time? <Link to="/register"><label className="general-links">Sign Up</label></Link>.</p>
             </footer>
         </div>
     )

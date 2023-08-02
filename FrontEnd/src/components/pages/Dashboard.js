@@ -1,12 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-
+import Logo from "../../assets/images/luganodes.webp"
 export default function Dashboard() {
     return (
         <div className="text-center">
-            <h1 className="main-title home-page-title">welcome to our app</h1>
+            <p><img src={Logo} alt="Luganodes"/></p>
             <Link to="/login">
-                <button className="primary-button">Log out</button>
+                <button className="primary-button">Log Out</button>
             </Link>
         </div>
     )

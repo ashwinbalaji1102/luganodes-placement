@@ -5,7 +5,7 @@ import {useState} from 'react';
 // import LandingPage from './components/pages/LandingPage'
 import LoginPage from './components/pages/LoginPage'
 import RegisterPage from './components/pages/RegisterPage'
-import ForgetPasswordPage from './components/pages/ForgetPasswordPage'
+import ForgetPasswordPage from './components/pages/ForgotPassword'
 import Dashboard from './components/pages/Dashboard'
 
 import './App.css'
@@ -29,7 +29,7 @@ export default function App() {
 
 const Footer = () => {
     return (
-         <p className="text-center" style={ FooterStyle }>Designed by <a href="https://www.linkedin.com/in/ashwin-balaji-489607252/" target="_blank" rel="noopener noreferrer">Ashwin Balaji</a></p>
+         <p className="text-center" style={ FooterStyle }>Designed by <a href="https://www.linkedin.com/in/ashwin-balaji-489607252/" target="_blank" rel="noopener noreferrer" class="general-links">Ashwin Balaji</a></p>
     )
 }
 
@@ -42,5 +42,4 @@ const FooterStyle = {
     padding: "1rem",
     margin: 0,
     width: "100%",
-    opacity: ".5"
 }

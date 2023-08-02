@@ -93,7 +93,12 @@ form label {
 
 .right-label {
     float: right;
-    cursor: pointer
+    
+}
+
+.general-links, .right-label{
+    color: rgb(190 30 46);
+    cursor: pointer;
 }
 
 input {
