@@ -9,24 +9,31 @@ import Logo from "../../assets/images/luganodes.webp"
 export default function SignUpPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmpassword, setConfirmPassword] = useState('');
     const [error, setError] = useState(null);
+    const [errorP, setErrorP] = useState(null);
     const history = useHistory();
-
-    function isValidEmail(email) {
-        return /\S+@\S+\.\S+/.test(email);
-    }
 
     useEffect(() => {
         const delayDebounceFn = setTimeout(() => {
             if (!isValidEmail(email) && email !== "") {
                 setError('Invalid e-Mail.');
-              } else {
+            }else {
                 setError(null);
-              }    
+            } 
+            if (password!== confirmpassword) {
+                setErrorP("Password and Confirm Password should be same")
+            }else{
+                setErrorP(null);
+            }
         }, 1000)
     
         return () => clearTimeout(delayDebounceFn)
-      }, [email])
+      }, [email, password])
+    
+    function isValidEmail(email) {
+        return /\S+@\S+\.\S+/.test(email);
+    }
 
     
     const handleChangeEmail = event => {
@@ -35,6 +42,9 @@ export default function SignUpPage() {
 
     const handleChangePassword = event => {
         setPassword(event.target.value);
+    } 
+    const handleChangeConfirmPassword = event => {
+        setConfirmPassword(event.target.value);
     } 
 
     let handleSubmit = async(e) => {
@@ -89,7 +99,8 @@ export default function SignUpPage() {
                 </p>
                 <p>
                     <label>Confirm Password</label><br/>
-                    <input type="password" name="password" requiredc />
+                    <input type="password" name="password" required onChange={handleChangeConfirmPassword}/>
+                    {errorP && <Alert type="error" message={errorP} />}
                 </p>
                 <p>
                     <button id="sub_btn" type="submit">Register</button>

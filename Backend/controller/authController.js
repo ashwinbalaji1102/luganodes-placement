@@ -12,36 +12,38 @@ exports.signup = async (req, res) => {
   try {
     const user = await User.create({
       email: req.body.email,
-      //password: bcrypt.hashSync(req.body.password, 8),
-      password: req.body.password
+      password: bcrypt.hashSync(req.body.password, 8),
+      //password: req.body.password
     });
     
     return res.send({ message: "User registered successfully!" });
     
   } catch (error) {
     let message = error.message;
-    if(message.includes("duplicate")) {message = "e-Mail already exists."}
-    else message = "The server has run into an error. Our team is actively looking into the issue."
+    // if(message.includes("duplicate")) {message = "e-Mail already exists."}
+    // else 
+    message = "The server has run into an error. Our team is actively looking into the issue."
     return res.status(500).send({ message: message });
   }
 };
 
 exports.signin = async (req, res) => {
   try {
-    const email = await User.findOne({email: req.body.email});
-    if (!email) {
+    const user = await User.findOne({email: req.body.email});
+    if (!user) {
       return res.status(404).send({ message: "e-Mail Not found." });
     }
-
-    // const passwordIsValid = bcrypt.compareSync(
-    //   req.body.password,
-    // );
-
-    // if (!passwordIsValid) {
-    //   return res.status(401).send({
-    //     message: "Invalid Password!",
-    //   });
-    // }
+    console.log(req.body.password)
+    const passwordIsValid = bcrypt.compareSync(
+      req.body.password,
+      user.password
+    );
+    console.log("Password is Valid Message: ", passwordIsValid)
+    if (!passwordIsValid) {
+      return res.status(401).send({
+        message: "Invalid Password.",
+      });
+    }
 
 //     const token = jwt.sign({ id: user.id },
 //                            config.secret,
@@ -60,10 +62,10 @@ exports.signin = async (req, res) => {
 //     req.session.token = token;
 
     return res.status(200).send({
-      email: email
+      email: user.email
     });
   } catch (error) {
-    return res.status(500).send({ message: error.message });
+    return res.status(500).send({ message: "Oops! The server is down. Our team is working to resolve the issue." });
   }
 };
 

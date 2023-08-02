@@ -13,6 +13,7 @@ export default function SignInPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
+    const [errorMM, setErrorMM] = useState(null);
     const history = useHistory();
 
     function isValidEmail(email) {
@@ -41,11 +42,7 @@ export default function SignInPage() {
     } 
 
     let handleSubmit = async(e) => {
-        //console.log("1. handleSubmit");
-        //event.preventDefault();
         e.preventDefault();
-        console.log(email);
-        console.log(password);
         let resJson = "";
         try {
             let body = JSON.stringify({
@@ -66,18 +63,22 @@ export default function SignInPage() {
             if (res.status === 200) {
                 setEmail("");
                 setPassword("");
-                history.push('/dashboard');
+                history.push({
+                    pathname:'/dashboard',
+                    state: email
+                });
             } else {
                 setError(resJson["message"]);
             }
         } catch (err) {
             console.log(err);
         }
-        console.log("Received Response: ",resJson);
+       // console.log("Received Response: ",resJson);
     };
 
-    const handleSubmitWallet = async () => {
-        console.log(window.web3)
+    const handleSubmitWallet = async (e) => {
+        e.preventDefault();
+        //console.log(window.ethereum);
         if (window.web3) {
         try {
             const selectedAccount = await window.ethereum.request({
@@ -87,18 +88,12 @@ export default function SignInPage() {
             .catch(() => {
                 throw Error("Please select an account");
             });
-    
-            window.userWalletAddress = selectedAccount;
-            // window.localStorage.setItem("userWalletAddress", selectedAccount);
-            setEmail("");
-            setPassword("");
-            history.push('/dashboard');
-    
+            history.push('/dashboard');    
         } catch (error) {
-            setError("Wallet not found.");
+            setErrorMM("Wallet not found.");
         }
         } else {
-        setError("Wallet not found.");
+        setErrorMM("Wallet not found.");
         }
     };
 
@@ -124,7 +119,7 @@ export default function SignInPage() {
             <div className="text-center m-1-auto">
                 <form className="web3_form" onSubmit={handleSubmitWallet}>
                     <p><button id="web3_btn" type="submit"><img src={MLogo} alt="Metamask" style={{width:"2em"}}/> Connect with MetaMask</button></p>
-                    {error && <Alert type="error" message={error} />}
+                    {errorMM && <Alert type="error" message={errorMM} />}
                 </form>
             </div>
             <footer>
